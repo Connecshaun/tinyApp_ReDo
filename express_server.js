@@ -1,4 +1,5 @@
 const express = require('express');
+const res = require('express/lib/response');
 const app = express();
 const PORT = 8080; 
 app.set("view engine", "ejs");
@@ -18,6 +19,14 @@ app.get('/', (req, res) => {
 app.get('/urls', (req, res) => {
   const templateVars = { urls: urlDatabase }
   res.render('urls_index', templateVars)
+})
+
+//renders another page to display a single URL and its shortened form
+app.get('/urls/:shortURL', (req, res) => {
+  const short = req.params.shortURL
+  const long = urlDatabase[req.params.shortURL]
+  const templateVars = {shortURL: short, longURL: long}
+  res.render('urls_show', templateVars)
 })
 
 app.get('/urls.json', (req, res) => {
