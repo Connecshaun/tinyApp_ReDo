@@ -10,7 +10,7 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
-//templateVars must always be an object so that the data can be properly accessed by our ejs templates... which can access the value of keys
+//templateVars must always be an object so that the data can be properly accessed by our ejs templates... the template can then access the value of keys
 app.get('/', (req, res) => {
   res.send("Hello!");
 });
@@ -21,7 +21,7 @@ app.get('/urls', (req, res) => {
   res.render('urls_index', templateVars)
 })
 
-//renders another page to display a single URL and its shortened form
+//the endpoint having ':'before the id indicates that the id ('shortURL' or whatever we input) is a route parameter. This means that the value in this part of the url will be available in the req.params object. 
 app.get('/urls/:shortURL', (req, res) => {
   const short = req.params.shortURL
   const long = urlDatabase[req.params.shortURL]
